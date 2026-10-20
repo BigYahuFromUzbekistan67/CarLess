@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CarLess - The ultimate car knowledge quiz game">
+  <title>CarLess 🏎️</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     HOME SCREEN
+     ============================================================ -->
+<div id="screen-home" class="screen">
+  <div class="home-hero">
+    <div class="home-logo">CarLess</div>
+    <p class="home-tagline">How much do you really know about cars?</p>
+  </div>
+  
+  <div class="games-grid">
+    <!-- BadgeLess -->
+    <div class="game-card" data-game="badgeless-setup" style="--card-color: #e50000;">
+      <span class="game-card-badge">Logo Quiz</span>
+      <div class="game-card-icon">🏅</div>
+      <div class="game-card-title">BadgeLess</div>
+      <div class="game-card-desc">Can you recognise car brands from their logo? Three difficulty levels from HD to color-only.</div>
+    </div>
+    
+    <!-- PriceLess -->
+    <div class="game-card" data-game="priceless" style="--card-color: #22c55e;">
+      <span class="game-card-badge">Price Quiz</span>
+      <div class="game-card-icon">💰</div>
+      <div class="game-card-title">PriceLess</div>
+      <div class="game-card-desc">Which car costs more today? Build your streak — one wrong answer and it's over.</div>
+    </div>
+    
+    <!-- FactLess -->
+    <div class="game-card" data-game="factless-setup" style="--card-color: #f59e0b;">
+      <span class="game-card-badge">Facts Quiz</span>
+      <div class="game-card-icon">📋</div>
+      <div class="game-card-title">FactLess</div>
+      <div class="game-card-desc">Find the true or false car fact from four convincing options. How well do you know your specs?</div>
+    </div>
+    
+    <!-- InfoLess -->
+    <div class="game-card" data-game="infoless" style="--card-color: #8b5cf6;">
+      <span class="game-card-badge">Wordle-style</span>
+      <div class="game-card-icon">🔍</div>
+      <div class="game-card-title">InfoLess</div>
+      <div class="game-card-desc">Guess the mystery car by its specs. Each guess reveals which categories match — like Wordle for cars.</div>
+    </div>
+    
+    <!-- CommLess -->
+    <div class="game-card" data-game="commless" style="--card-color: #06b6d4;">
+      <span class="game-card-badge">F1 Radio</span>
+      <div class="game-card-icon">🎙️</div>
+      <div class="game-card-title">CommLess</div>
+      <div class="game-card-desc">Legendary F1 team radio messages. Who said it? What was the missing word? Test your F1 knowledge.</div>
+    </div>
+    
+    <!-- PartLess -->
+    <div class="game-card" data-game="partless" style="--card-color: #f97316;">
+      <span class="game-card-badge">Parts Quiz</span>
+      <div class="game-card-icon">⚙️</div>
+      <div class="game-card-title">PartLess</div>
+      <div class="game-card-desc">Name the car part, then explain what it does. Interior, exterior and engine components.</div>
+    </div>
+    
+    <!-- TextLess -->
+    <div class="game-card" data-game="textless" style="--card-color: #ec4899;">
+      <span class="game-card-badge">Fill Blanks</span>
+      <div class="game-card-icon">📝</div>
+      <div class="game-card-title">TextLess</div>
+      <div class="game-card-desc">Complete automotive texts by filling in the missing words. History, tech, motorsport and more.</div>
+    </div>
+  </div>
+  
+  <div class="high-scores-section">
+    <h3>🏆 Your High Scores</h3>
+    <div class="scores-grid" id="home-highscores">
+      <div class="score-chip">BadgeLess: <strong id="hs-badgeless">—</strong></div>
+      <div class="score-chip">PriceLess: <strong id="hs-priceless">—</strong></div>
+      <div class="score-chip">FactLess: <strong id="hs-factless">—</strong></div>
+      <div class="score-chip">InfoLess: <strong id="hs-infoless">—</strong></div>
+      <div class="score-chip">CommLess: <strong id="hs-commless">—</strong></div>
+      <div class="score-chip">PartLess: <strong id="hs-partless">—</strong></div>
+      <div class="score-chip">TextLess: <strong id="hs-textless">—</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     BADGELESS SETUP SCREEN
+     ============================================================ -->
+<div id="screen-badgeless-setup" class="screen">
+  <div class="game-header">
+    <h2>🏅 BADGELESS</h2>
+    <div class="header-stats"></div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  <div class="setup-content">
+    <h2>Choose Difficulty</h2>
+    <p class="subtitle">How hard do you want the logo challenge to be?</p>
+    
+    <div class="difficulty-selector">
+      <button class="difficulty-btn" data-tier="1">
+        <div style="font-size:2rem;margin-bottom:8px">👁️</div>
+        <h3>Easy</h3>
+        <p>Top mainstream brands. Logo shown in full HD.</p>
+      </button>
+      <button class="difficulty-btn" data-tier="2">
+        <div style="font-size:2rem;margin-bottom:8px">🔲</div>
+        <h3>Medium</h3>
+        <p>Less common brands. Logo starts pixelated — improves with wrong guesses.</p>
+      </button>
+      <button class="difficulty-btn" data-tier="3">
+        <div style="font-size:2rem;margin-bottom:8px">🎨</div>
+        <h3>Hard</h3>
+        <p>Rare brands. Only colour proportions shown. Hints appear after 3 wrong guesses.</p>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     BADGELESS GAME SCREEN
+     ============================================================ -->
+<div id="screen-badgeless" class="screen">
+  <div class="game-header">
+    <h2>🏅 BADGELESS</h2>
+    <div class="header-stats">
+      <span id="bl-round">Round 1</span>
+      <span id="bl-score">Score: 0</span>
+      <span id="bl-wrong-count">Wrong: 0</span>
+    </div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  
+  <div class="game-content">
+    <div class="logo-container" id="bl-image-container">
+      <div class="loading-spinner"><div class="spinner"></div><p>Loading...</p></div>
+    </div>
+    
+    <div id="bl-hints"></div>
+    
+    <div class="autocomplete-wrapper" style="margin: 16px 0;">
+      <input type="text" 
+             id="bl-answer-input" 
+             class="text-input" 
+             placeholder="Type the car brand name..."
+             autocomplete="off"
+             spellcheck="false">
+    </div>
+    
+    <div id="bl-feedback" class="feedback"></div>
+    
+    <div style="display:flex;gap:10px;margin-top:12px;">
+      <button id="bl-submit" class="btn-primary" style="flex:1">Submit ✓</button>
+      <button id="bl-skip" class="btn-danger">Give Up</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PRICELESS GAME SCREEN
+     ============================================================ -->
+<div id="screen-priceless" class="screen">
+  <div class="game-header">
+    <h2>💰 PRICELESS</h2>
+    <div class="header-stats">
+      <span id="pl-score">Score: 0</span>
+      <span id="pl-streak">Streak: 0</span>
+      <span id="pl-highscore">Best: 0</span>
+    </div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  
+  <div class="game-content">
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:16px;">
+      Which car costs <strong style="color:var(--text-primary)">more</strong> today?
+    </p>
+    
+    <div class="price-arena">
+      <!-- Left Car -->
+      <div class="price-card" id="pl-card-left">
+        <div class="car-img-container"></div>
+        <div class="price-card-header">
+          <div class="car-name"></div>
+          <div class="car-year"></div>
+          <div class="car-price" style="display:none"></div>
+        </div>
+        <button class="price-pick-btn" id="pl-pick-left">← This one is more expensive</button>
+      </div>
+      
+      <div class="vs-badge">VS</div>
+      
+      <!-- Right Car -->
+      <div class="price-card" id="pl-card-right">
+        <div class="car-img-container"></div>
+        <div class="price-card-header">
+          <div class="car-name"></div>
+          <div class="car-year"></div>
+          <div class="car-price" style="display:none"></div>
+        </div>
+        <button class="price-pick-btn" id="pl-pick-right">This one is more expensive →</button>
+      </div>
+    </div>
+    
+    <div id="pl-feedback" class="feedback"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FACTLESS SETUP SCREEN
+     ============================================================ -->
+<div id="screen-factless-setup" class="screen">
+  <div class="game-header">
+    <h2>📋 FACTLESS</h2>
+    <div class="header-stats"></div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  <div class="setup-content">
+    <h2>Fact Check Setup</h2>
+    <p class="subtitle">Configure your quiz session</p>
+    
+    <div style="margin-bottom:24px;">
+      <h4 style="color:var(--text-secondary);margin-bottom:10px;">Number of Rounds</h4>
+      <div class="setup-options">
+        <button class="rounds-btn" data-rounds="3">3 Rounds</button>
+        <button class="rounds-btn" data-rounds="5">5 Rounds</button>
+        <button class="rounds-btn" data-rounds="10">10 Rounds</button>
+        <button class="rounds-btn" data-rounds="inf">♾️ Endless</button>
+      </div>
+    </div>
+    
+    <div style="margin-bottom:30px;">
+      <h4 style="color:var(--text-secondary);margin-bottom:10px;">Game Mode</h4>
+      <div class="setup-options">
+        <button class="mode-btn" data-mode="find_truth">🔍 Find the TRUE fact</button>
+        <button class="mode-btn" data-mode="find_lie">🕵️ Find the FALSE fact</button>
+      </div>
+    </div>
+    
+    <button id="factless-start" class="btn-primary" style="width:100%">Start Game →</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     FACTLESS GAME SCREEN
+     ============================================================ -->
+<div id="screen-factless" class="screen">
+  <div class="game-header">
+    <h2>📋 FACTLESS</h2>
+    <div class="header-stats">
+      <span id="fl-round">Round 1/5</span>
+      <span id="fl-score">Score: 0</span>
+      <span id="fl-mode-label">Find the TRUE fact</span>
+    </div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  
+  <div class="game-content">
+    <div id="fl-car-image" style="margin-bottom:12px;">
+      <div class="loading-spinner"><div class="spinner"></div></div>
+    </div>
+    
+    <h3 id="fl-car-name" style="text-align:center;margin-bottom:4px;"></h3>
+    <p id="fl-mode-label-inline" style="text-align:center;color:var(--text-muted);font-size:0.9rem;margin-bottom:16px;"></p>
+    
+    <div class="options-grid" id="fl-options"></div>
+    
+    <div id="fl-feedback" class="feedback"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     INFOLESS GAME SCREEN
+     ============================================================ -->
+<div id="screen-infoless" class="screen">
+  <div class="game-header">
+    <h2>🔍 INFOLESS</h2>
+    <div class="header-stats">
+      <span id="il-guess-count">Guesses: 0</span>
+      <span id="il-hints-count">Hints: 0</span>
+    </div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  
+  <div class="game-content">
+    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:12px;">
+      Type a car name and each guess shows which categories match. 
+      <strong style="color:var(--correct)">Green</strong> = correct, 
+      <strong style="color:var(--wrong)">Red</strong> = wrong, 
+      arrows show direction.
+    </p>
+    
+    <div class="info-input-area">
+      <div class="autocomplete-wrapper" style="flex:1">
+        <input type="text" 
+               id="il-car-input" 
+               class="text-input"
+               placeholder="Type make and model (e.g. Ferrari F40)..."
+               autocomplete="off"
+               spellcheck="false">
+      </div>
+      <button id="il-submit" class="btn-primary">Guess</button>
+    </div>
+    
+    <div class="info-controls">
+      <button id="il-hint-btn" class="btn-secondary">💡 Hint (−15 pts)</button>
+      <button id="il-give-up" class="btn-danger">🏳️ Give Up</button>
+    </div>
+    
+    <div id="il-hint-display" class="hint-item" style="display:none;margin-bottom:12px;"></div>
+    <div id="il-feedback" class="feedback"></div>
+    <div id="il-answer-reveal" style="display:none;"></div>
+    
+    <div class="guess-grid-wrapper">
+      <div class="guess-grid">
+        <div class="guess-headers" id="il-category-headers"></div>
+        <div id="il-guesses-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     COMMLESS GAME SCREEN
+     ============================================================ -->
+<div id="screen-commless" class="screen">
+  <div class="game-header">
+    <h2>🎙️ COMMLESS</h2>
+    <div class="header-stats">
+      <span id="cl-round">Round 1</span>
+      <span id="cl-score">Score: 0</span>
+    </div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  
+  <div class="game-content">
+    <div class="radio-quote-card">
+      <p class="radio-template-label" id="cl-template-label">Who said this?</p>
+      <p class="radio-quote" id="cl-quote">"..."</p>
+      <p class="radio-context" id="cl-context"></p>
+    </div>
+    
+    <div id="cl-options" style="display:flex;flex-direction:column;gap:10px;margin:16px 0;"></div>
+    
+    <div id="cl-feedback" class="feedback"></div>
+    
+    <button id="cl-next" class="btn-primary" style="width:100%;display:none;margin-top:12px;">Next →</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     PARTLESS GAME SCREEN
+     ============================================================ -->
+<div id="screen-partless" class="screen">
+  <div class="game-header">
+    <h2>⚙️ PARTLESS</h2>
+    <div class="header-stats">
+      <span id="prt-round">Round 1</span>
+      <span id="prt-score">Score: 0/0</span>
+    </div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  
+  <div class="game-content">
+    <div id="prt-image" style="margin-bottom:12px;">
+      <div class="loading-spinner"><div class="spinner"></div></div>
+    </div>
+    
+    <p id="prt-location" style="color:var(--text-muted);font-size:0.85rem;text-align:center;margin-bottom:4px;"></p>
+    <h3 id="prt-phase" style="text-align:center;margin-bottom:16px;"></h3>
+    
+    <div class="options-grid" id="prt-options"></div>
+    
+    <div id="prt-feedback" class="feedback"></div>
+    
+    <button id="prt-next" class="btn-primary" style="width:100%;display:none;margin-top:12px;">Next Part →</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     TEXTLESS GAME SCREEN
+     ============================================================ -->
+<div id="screen-textless" class="screen">
+  <div class="game-header">
+    <h2>📝 TEXTLESS</h2>
+    <div class="header-stats">
+      <span id="tl-round">Round 1</span>
+      <span id="tl-score">Score: 0</span>
+      <span id="tl-category" style="color:var(--accent);">Category</span>
+    </div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  
+  <div class="game-content">
+    <h3 id="tl-title" style="margin-bottom:16px;"></h3>
+    
+    <div class="fill-text" id="tl-text-container">
+      <!-- Filled dynamically -->
+    </div>
+    
+    <div id="tl-hints-container" style="margin:12px 0;"></div>
+    
+    <div id="tl-feedback" class="feedback"></div>
+    
+    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+      <button id="tl-submit" class="btn-primary" style="flex:1">Check Answers ✓</button>
+      <button id="tl-skip" class="btn-secondary">Reveal Answers</button>
+    </div>
+    
+    <button id="tl-next" class="btn-primary" style="width:100%;display:none;margin-top:12px;">Next Text →</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     RESULT SCREEN
+     ============================================================ -->
+<div id="screen-result" class="screen">
+  <div class="game-header">
+    <h2>🏆 RESULTS</h2>
+    <div class="header-stats"></div>
+    <button class="home-btn" data-goto-home>🏠 Home</button>
+  </div>
+  
+  <div class="result-content">
+    <div class="result-trophy">🏆</div>
+    <div class="result-game-name" id="result-game-name">Game Over</div>
+    <div class="result-score-display" id="result-score">0</div>
+    <div class="result-highscore">Best: <strong id="result-highscore">—</strong></div>
+    <div class="result-new-record" id="result-new-record" style="display:none;">🎉 NEW HIGH SCORE!</div>
+    <div class="result-message" id="result-message"></div>
+    <div class="result-actions">
+      <button id="result-play-again" class="btn-primary">🔄 Play Again</button>
+      <button id="result-home" class="btn-secondary">🏠 Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts - load data files first -->
+<script src="js/data/cars.js"></script>
+<script src="js/data/logos.js"></script>
+<script src="js/data/facts.js"></script>
+<script src="js/data/radio.js"></script>
+<script src="js/data/parts.js"></script>
+<script src="js/data/texts.js"></script>
+<!-- Utilities -->
+<script src="js/utils.js"></script>
+<!-- Game modules -->
+<script src="js/games/badgeless.js"></script>
+<script src="js/games/priceless.js"></script>
+<script src="js/games/factless.js"></script>
+<script src="js/games/infoless.js"></script>
+<script src="js/games/commless.js"></script>
+<script src="js/games/partless.js"></script>
+<script src="js/games/textless.js"></script>
+<!-- Main app -->
+<script src="js/main.js"></script>
+</body>
+</html>
